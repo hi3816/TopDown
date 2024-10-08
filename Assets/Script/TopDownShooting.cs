@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TopDownShooting : MonoBehaviour 
+public partial class TopDownShooting : MonoBehaviour 
 {
     private TopDownController controller;
 
@@ -37,6 +37,9 @@ public class TopDownShooting : MonoBehaviour
     {
         // 화살을 생성합니다.
         // TODO : 화살이 실제로 날라가게 구현 / 오브젝트 풀을 통한 구조 개선
-        Instantiate(testPrefab, projectileSpawnPosition.position, Quaternion.identity);
+        float rotZ = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        //화살 생성 및 이동
+        GameObject arrow = Instantiate(testPrefab, projectileSpawnPosition.position, Quaternion.Euler(0, 0, rotZ));
+        arrow.GetComponent<Rigidbody2D>().velocity = aimDirection * 5.0f;
     }
 }
